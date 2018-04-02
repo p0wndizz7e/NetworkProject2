@@ -83,7 +83,6 @@ public class Event implements Comparable<Event>
     public int compareTo(Event e)
     {
         return this.time-e.time;
-
     }
 
 }

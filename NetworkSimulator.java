@@ -107,7 +107,11 @@ public class NetworkSimulator
         {System.out.println("Could not open file " + e);}
 
         while(sc.hasNextLine())
-            messageArray.add(sc.nextLine());
+        {
+            String temp = sc.nextLine();
+            messageArray.add(temp);
+            System.out.println(temp);
+        }
         return messageArray;
     }
 

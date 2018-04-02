@@ -47,8 +47,11 @@ public class Packet
         return msg;
     }
     
-    public void setChecksum()
+    public void setChecksum() //make sure checksum includes teh ack and seq numbers
     {
+        int tempCheck = 0;
+        String tempMsg = msg.getMessage();
+        System.out.println(Character.SIZE);
     }
     
     public boolean isCorrupt()
