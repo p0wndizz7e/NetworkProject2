@@ -49,13 +49,41 @@ public class Packet
     
     public void setChecksum() //make sure checksum includes teh ack and seq numbers
     {
-        int tempCheck = 0;
+        int tempSum = 0;
         String tempMsg = msg.getMessage();
-        System.out.println(Character.SIZE);
+        int msgLength = tempMsg.length();
+        for(int x = 0; x < msgLength; x++)
+        {
+            tempSum += (int)tempMsg.charAt(x);
+        }
+        tempSum += seqnum + acknum;
+        int ones = (Integer.highestOneBit(tempSum) << 1) - 1;
+        int compliment = tempSum ^ ones;
+        checksum = compliment;
+        System.out.println("tempsum " + tempSum + " compliment " + compliment + " addition " + (tempSum + compliment));
     }
     
     public boolean isCorrupt()
     {
+        int tempSum = 0;
+        String tempMsg = msg.getMessage();
+        int msgLength = tempMsg.length();
+        for(int x = 0; x < msgLength; x++)
+        {
+            tempSum += (int)tempMsg.charAt(x);
+        }
+        tempSum += seqnum + acknum;
+        int result = tempSum + checksum;
+        String binary = Integer.toBinaryString(result);
+        System.out.println(binary);
+        for(int i = 0; i < binary.length(); i ++)
+        {
+            if(binary.charAt(i) == '0')
+            {
+                System.out.println("Yall done goofed");
+                return true;
+            }
+        }
         return false;
     }
     
